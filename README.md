@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 小抄门户
 
-## Getting Started
+提供新版小抄下载，并用 Markdown 维护二级文章页。页面在构建时静态生成，带标题、描述、站点地图和 robots，方便搜索引擎收录。
 
-First, run the development server:
+## 本地运行
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+浏览器打开 http://localhost:3000 。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 新增一篇文章
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+在 `content/pages` 新建 `文件名.md`。文件名就是路径，例如 `about.md` 对应 `/about`。
 
-## Learn More
+```md
+---
+title: 关于我
+description: 页面简介，会写入 meta description。
+updated: 2026-09-30
+---
 
-To learn more about Next.js, take a look at the following resources:
+正文支持标题、列表、表格和代码块。
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+首页导航里的「关于我」指向 `/about`。要加新入口，改 `src/components/site-header.tsx` 里的链接。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 上架一份小抄
 
-## Deploy on Vercel
+1. 把文件放进 `public/downloads`。
+2. 在 `src/lib/cheatsheets.ts` 增加一条记录，`file` 写成 `/downloads/文件名`。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 上线前
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+把 `src/lib/site.ts` 里的 `url` 改成正式域名，站点地图和规范链接会跟着变。
