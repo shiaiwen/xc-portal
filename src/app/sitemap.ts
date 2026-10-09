@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getPageSlugs } from "@/lib/pages";
 import { site } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = getPageSlugs().map((slug) => ({
     url: `${site.url}/${slug}`,

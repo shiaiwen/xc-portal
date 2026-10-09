@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "node deploy/push.js",
+    "deploy:downloads": "node deploy/push-downloads.js",
+    "sync": "node deploy/watch.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

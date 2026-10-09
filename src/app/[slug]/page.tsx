@@ -24,6 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: page.title,
       description: page.description,
       type: "article",
+      url: `/${slug}`,
+      images: [{ url: "/og.jpg", alt: page.title }],
     },
   };
 }
