@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+/.next-dev-3003/
 /out/
 /dist/
 

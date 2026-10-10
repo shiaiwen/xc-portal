@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { DownloadMode } from "@/components/download-mode";
 import { InstallerDownload } from "@/components/installer-download";
+
+const userscriptHref = "/downloads/sgs-xc.user.js";
 
 export const metadata: Metadata = {
   title: "下载",
   description:
-    "三国杀打小抄微端安装包下载与安装说明，支持 Windows 和 macOS，永久免费。",
-  keywords: ["三国杀小抄下载", "微端安装", "记牌助手", "Windows", "macOS"],
+    "三国杀打小抄下载。可选微端安装包，或在浏览器安装油猴脚本，永久免费。",
+  keywords: ["三国杀小抄下载", "微端安装", "油猴脚本", "Tampermonkey", "记牌助手"],
   alternates: { canonical: "/downloads" },
   openGraph: {
     title: "下载 · 桌游助手",
     description:
-      "三国杀打小抄微端安装包下载与安装说明，支持 Windows 和 macOS，永久免费。",
+      "三国杀打小抄下载。可选微端安装包，或在浏览器安装油猴脚本，永久免费。",
     url: "/downloads",
     images: [{ url: "/og.jpg", alt: "桌游助手下载" }],
   },
@@ -52,20 +55,24 @@ function Section({
   );
 }
 
+const actionClass =
+  "inline-flex min-w-28 items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition hover:bg-accent";
+
 export default function DownloadsPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-6">
-        <div>
-          <h1 className="font-serif text-4xl">安装说明</h1>
-          <p className="mt-3 max-w-xl text-sm leading-7 text-ink/70 sm:text-base">
-            解压下载的测试包后，请先完全关闭三国杀官方微端，再按系统选择对应步骤。
-          </p>
-        </div>
-        <InstallerDownload />
-      </div>
-
-      <div className="mt-8 space-y-8">
+      <h1 className="font-serif text-4xl">下载</h1>
+      <div className="mt-6">
+      <DownloadMode
+        client={
+          <>
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-6">
+              <p className="max-w-xl text-sm leading-7 text-ink/70 sm:text-base">
+                解压下载的测试包后，请先完全关闭三国杀官方微端，再按系统选择对应步骤。
+              </p>
+              <InstallerDownload />
+            </div>
+            <div className="mt-8 space-y-8">
         <div>
           <h2 className="font-serif text-2xl text-ink">Windows</h2>
           <div className="mt-4 space-y-4">
@@ -255,6 +262,44 @@ export default function DownloadsPage() {
             </li>
           </ul>
         </section>
+            </div>
+          </>
+        }
+        script={
+          <>
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/10 pb-6">
+              <p className="max-w-xl text-sm leading-7 text-ink/70 sm:text-base">
+                在浏览器里安装小抄脚本，打开三国杀网页端即可使用，不用替换微端文件。
+              </p>
+              <a href={userscriptHref} className={actionClass}>
+                脚本小抄
+              </a>
+            </div>
+            <div className="mt-8">
+              <Section title="安装">
+                <Steps
+                  items={[
+                    <>
+                      先在浏览器安装{" "}
+                      <a
+                        href="https://www.tampermonkey.net/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-accent underline-offset-2 hover:underline"
+                      >
+                        Tampermonkey
+                      </a>{" "}
+                      / 篡改猴扩展。
+                    </>,
+                    <>点击“脚本小抄”，在 Tampermonkey 页面确认安装或更新。</>,
+                    <>打开三国杀网页端，进入游戏后即可看到小抄面板。</>,
+                  ]}
+                />
+              </Section>
+            </div>
+          </>
+        }
+      />
       </div>
     </main>
   );
